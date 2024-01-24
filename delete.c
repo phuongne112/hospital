@@ -35,8 +35,6 @@ del:		fseek(fptr,0,SEEK_SET);
 			scanf("%c", &yn);
 			if(yn=='Y' || yn=='y')
 			{
-				fclose(fptr);
-                fclose(fnew);
 				return 0;
 			}
 			goto del;
@@ -72,4 +70,4 @@ del:		fseek(fptr,0,SEEK_SET);
     	rename("record1.dat","records.dat");
     	printf("\nPatient record deleted.\n");
     	return 1;
-}
+} 
