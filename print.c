@@ -5,7 +5,8 @@
 
 void date(FILE *fptr)
 {
-    int date[3];
+    int date[3] = {0};  // Initialize date array to zeros
+    
     while (fread(date, sizeof(date), 1, fptr) == 1)
     {
         // Check if the date array is properly initialized
@@ -20,6 +21,7 @@ void date(FILE *fptr)
         }
     }
 }
+
 
 
 void print(FILE *fptr)
