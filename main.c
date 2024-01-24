@@ -98,5 +98,15 @@ menu:	menu();
 		system("clear");
 		exit(0);
 	}
-	return 0;
+	else if(option == 5)
+{
+    if(delete() == 0)
+    {
+        goto menu;
+    }
+    // Add a label to mark the end of the function
+    end_of_function:
+    return 0;
 }
+
+
