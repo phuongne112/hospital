@@ -5,12 +5,22 @@
 
 void date(FILE *fptr)
 {
-	int date[3];
-	while(fread(date, sizeof(date), 1, fptr)==1)
-	{
-		printf("   %2d-%2d-%4d\n", date[0], date[1], date[2]);
-	}
+    int date[3];
+    while (fread(date, sizeof(date), 1, fptr) == 1)
+    {
+        // Check if the date array is properly initialized
+        if (date[0] >= 1 && date[1] >= 1 && date[2] >= 1)
+        {
+            printf("   %2d-%2d-%4d\n", date[0], date[1], date[2]);
+        }
+        else
+        {
+            // Handle the case where date array is not initialized properly
+            printf("   Invalid date\n");
+        }
+    }
 }
+
 
 void print(FILE *fptr)
 {
