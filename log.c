@@ -9,6 +9,11 @@ int log_patient(FILE *fptr, int date[])		//Date file
 	int da[3];
 	while(fread(da, sizeof(da), 1, fptr)==1)
 	{
+		 // Initialize the array 'da' before using it
+        for (int i = 0; i < 3; i++)
+        {
+            da[i] = 0; // or any suitable initial value
+        }
 		int count = 0;
 		for(int i=0; i<3; i++)
 			if(da[i]==date[i])
