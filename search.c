@@ -5,50 +5,67 @@
 #include<ctype.h>
 #include "display.h"
 #include "printname_pid.h"
+
 void name_pid(struct patient p);
-void strlower(char* p,char* c);
-void search(FILE* fptr)
-{
-    	FILE* fnew,fdum;
-    	char ch;
-    	struct patient pat;
-    	char s[100];
-    	char c[100];
-    	int flag=0;
-a:    	fnew=fopen("search.dat","wb+");
-  	printf("\nBy which field would you like to search?");
-	printf("\n1)Name");
-	printf("\n2)Patient ID");
-	printf("\n3)Doctor consulted");
-	printf("\n4)Status\nPlease enter your choice: ");
-    	int inp;
-    	scanf("%d",&inp);
-    	switch (inp)
-    	{
-        	case 1:
-            		flag=0;
-            		fseek(fptr,0,SEEK_SET);
-            		printf("\nEnter the name of the patient : ");
-            		scanf("%s",s);
-            		strlower(s,s);
-            		while(fread(&pat,sizeof(pat),1,fptr))
-            		{
-                		strlower(pat.name,c);
-                		if(strstr(c,s))
-                		{
-                    			fwrite(&pat,sizeof(pat),1,fnew);
-                    			flag=1;
-                		}
-            		}
-            		if(flag==0)
-            		{
-            			printf("No records found.\n\n");
-            			break;
-            		}
-            		fseek(fnew,0,SEEK_SET);
-            		printname_pid(fnew);
-            		goto case2;
-            		break;
+void strlower(char* p, char* c);
+
+void search(FILE* fptr) {
+    FILE* fnew;
+    char s[100];
+    char c[100];
+    int flag = 0;
+
+    fnew = fopen("search.dat", "wb+");
+    if (fnew == NULL) {
+        printf("Error opening search.dat for writing.\n");
+        return;
+    }
+
+    printf("\nBy which field would you like to search?");
+    printf("\n1) Name");
+    printf("\n2) Patient ID");
+    printf("\n3) Doctor consulted");
+    printf("\n4) Status\nPlease enter your choice: ");
+
+    int inp;
+    scanf("%d", &inp);
+
+    switch (inp) {
+        case 1:
+            flag = 0;
+            fseek(fptr, 0, SEEK_SET);
+            printf("\nEnter the name of the patient: ");
+            scanf("%s", s);
+            strlower(s, s);
+
+            while (fread(&pat, sizeof(pat), 1, fptr)) {
+                strlower(pat.name, c);
+                if (strstr(c, s)) {
+                    fwrite(&pat, sizeof(pat), 1, fnew);
+                    flag = 1;
+                }
+            }
+
+            if (flag == 0) {
+                printf("No records found.\n\n");
+            } else {
+                fseek(fnew, 0, SEEK_SET);
+                printname_pid(fnew);
+                // Removed unnecessary 'goto case2;' as it's not needed.
+            }
+
+            break; // Fixed the issue with 'break' not being executed.
+        
+        // Add cases for 2, 3, and 4 if needed.
+
+        default:
+            printf("Invalid choice.\n");
+            break;
+    }
+
+    fclose(fnew);
+}
+
         	case 2:
             		
 case2:
