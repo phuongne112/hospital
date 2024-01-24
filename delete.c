@@ -35,7 +35,11 @@ del:		fseek(fptr,0,SEEK_SET);
 			scanf("%c", &yn);
 			if(yn=='Y' || yn=='y')
 			{
-				return 0;
+				fclose(fptr);
+                if (fnew != NULL) {
+                    fclose(fnew);
+                }
+                return 0;
 			}
 			goto del;
 		}
