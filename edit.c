@@ -53,11 +53,12 @@ void edit(/*struct patient *ptr*/)
 	    	{
 	    		case 1:
                    		
-                   		  printf("Enter the updated name:");
-            fgets(ptr.name, MAX_NAME_LENGTH, stdin);
-            ptr.name[strcspn(ptr.name, "\n")] = '\0'; // Remove the newline character if present
-            rename(dummy0, ptr.name);
-            break;
+                   		strcpy(dummy0,ptr.name);
+                   		printf("Enter the updated name:");
+				gets(ptr.name);
+                   
+                   		rename(dummy0,ptr.name);
+			       break;
 	    		case 2:
 			       printf("Enter the updated Age:");
 			       scanf("%d",&(ptr.age));
