@@ -52,13 +52,20 @@ void edit(/*struct patient *ptr*/)
 	    	switch(op)
 	    	{
 	    		case 1:
-                   		
-                   		strcpy(dummy0,ptr.name);
-                   		printf("Enter the updated name:");
-				gets(ptr.name);
-                   
-                   		rename(dummy0,ptr.name);
-			       break;
+    {
+        // Ensure dummy0 has enough space to hold the name
+        char dummy0[MAX_NAME_LENGTH]; // Assuming MAX_NAME_LENGTH is defined somewhere
+
+        // Copy the original name to dummy0
+        strncpy(dummy0, ptr.name, sizeof(dummy0) - 1);
+        dummy0[sizeof(dummy0) - 1] = '\0'; // Null-terminate the string
+
+        printf("Enter the updated name: ");
+        fgets(ptr.name, sizeof(ptr.name), stdin); // Use fgets instead of gets
+        ptr.name[strcspn(ptr.name, "\n")] = '\0'; // Remove the trailing newline if present
+
+        rename(dummy0, ptr.name);
+        break;
 	    		case 2:
 			       printf("Enter the updated Age:");
 			       scanf("%d",&(ptr.age));
